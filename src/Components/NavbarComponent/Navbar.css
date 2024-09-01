@@ -8,6 +8,9 @@
   .main-nav a {
     font-weight: bold;
     color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   
   .main-nav a.router-link-exact-active {
