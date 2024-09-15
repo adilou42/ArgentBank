@@ -3,9 +3,25 @@ import "./SignIn.css";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setToken } from "../../Redux/actions/userActions"; // Adjust the path as needed
+import { RootState } from "../../Redux/store";
+
 const SignIn = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const user = useSelector((state: RootState) => state.user); // Get counter from Redux store
+    const dispatch = useDispatch(); 
+
+    function setUserStore(token: string) {
+        dispatch(setToken(token));
+        // localStorage.setItem("token", token);
+        console.log(user.token);
+        // console.log(token)
+    }
+
+    
+
+    const [username, setUsername] = useState("tony@stark.com");
+    const [password, setPassword] = useState("password123");
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value);
@@ -14,47 +30,47 @@ const SignIn = () => {
     function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         setPassword(event.target.value);
     }
+
+    function checkToken() {
+        console.log("Token: ", user);
+    }
+
     async function handleSubmit() {
-        // console.log(username);
-        // console.log(password);
+        const emailValue = username;
+        const passwordValue = password;
+        const response = await fetch(
+            "http://localhost:3001/api/v1/user/login",
+            {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
 
-            const emailValue = username
-            const passwordValue = password
-            console.log(emailValue)
-            const response = await fetch(
-                "http://localhost:3001/api/v1/user/login",
-                {
-                    method: "POST", // *GET, POST, PUT, DELETE, etc.
-
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: emailValue,
-                        password: passwordValue,
-                    }),
-                }
-            );
-            const data = await response.json();
-            console.log('first', data)
-            if (response.ok) {
-                alert("success")
-                localStorage.setItem("token", data.token);
-                // window.location.href = "index.html";
-            } else {
-                switch (response.status) {
-                    case 400:
-                        alert("Invalid fields");
-                        break;
-                    // case 401:
-                    //     alert("Incorrect password");
-                    //     break;
-                    default:
-                        alert("An error occurred");
-                        break;
-                }
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: emailValue,
+                    password: passwordValue,
+                }),
             }
-            return data;
+        );
+        const data = await response.json();
+        if (response.ok) {
+            alert("success");
+            setUserStore(data.body.token);
+            // window.location.href = "index.html";
+        } else {
+            switch (response.status) {
+                case 400:
+                    alert("Invalid fields");
+                    break;
+                // case 401:
+                //     alert("Incorrect password");
+                //     break;
+                default:
+                    alert("An error occurred");
+                    break;
+            }
+        }
+        return data;
     }
 
     return (
@@ -68,7 +84,7 @@ const SignIn = () => {
                         <label htmlFor="username">Username</label>
                         <input
                             type="text"
-                            value={username}
+                            value="tony@stark.com"
                             id="username"
                             onChange={handleUsernameChange}
                         />
@@ -78,7 +94,7 @@ const SignIn = () => {
                         <input
                             type="password"
                             id="password"
-                            value={password}
+                            value="password123"
                             onChange={handlePasswordChange}
                         />
                     </div>
@@ -96,6 +112,20 @@ const SignIn = () => {
                         onClick={handleSubmit}
                     >
                         Sign In
+                    </button>
+                    {/* <button
+                        className="sign-in-button"
+                        type="button"
+                        onClick={deleteToken}
+                    >
+                        delete Token
+                    </button> */}
+                    <button
+                        className="sign-in-button"
+                        type="button"
+                        onClick={checkToken}
+                    >
+                        check Token
                     </button>
                     {/* </Link> */}
                 </form>

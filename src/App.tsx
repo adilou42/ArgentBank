@@ -5,21 +5,27 @@ import Footer from "./Components/FooterComponent/Footer";
 import Navbar from "./Components/NavbarComponent/Navbar";
 import HomePage from "./Pages/Home/HomePage";
 import SignInPage from "./Pages/SignIn/SignInPage";
-import ErrorPage from "./Pages/Error/ErrorPage";
 import User from "./Components/UserComponent/User";
+import TestPage from "./Pages/Test/TestPage";
+import { Provider } from "react-redux";
+import store from "./Redux/store";
+import ErrorPage from "./Pages/Error/ErrorPage";
 
 function App() {
     return (
-        <div className="big-div">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<HomePage/>} />
-              <Route path="/SignIn" element={<SignInPage/>} />
-              <Route path="/User" element={<User/>} />
-              <Route path="*" element={<ErrorPage/>} />
-            </Routes>
-            <Footer />
-        </div>
+        <Provider store={store}>
+            <div className="big-div">
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/SignIn" element={<SignInPage />} />
+                    {/* <Route path="/SignIn" element={<TestPage />} /> */}
+                    <Route path="/User" element={<User />} />
+                    <Route path="*" element={<ErrorPage />} />
+                </Routes>
+                <Footer />
+            </div>
+        </Provider>
     );
 }
 

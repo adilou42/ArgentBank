@@ -1,6 +1,12 @@
+import { useSelector } from 'react-redux';
 import './HomeSection.css'
+import { RootState } from '../../Redux/store';
 
 const HomeSection = () => {
+
+  const counter = useSelector((state: RootState) => state.counter.counter);
+  
+
   return (
     <main>
       <div className="hero">
@@ -10,6 +16,7 @@ const HomeSection = () => {
           <p className="subtitle">No minimum deposit.</p>
           <p className="subtitle">High interest rates.</p>
           <p className="text">Open a savings account with Argent Bank today!</p>
+          <p>Counter: {counter}</p> {/* Display the counter value */}
         </section>
       </div>
       <section className="features">
