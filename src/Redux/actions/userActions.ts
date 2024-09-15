@@ -1,5 +1,5 @@
-export const setToken = (token: string) => ({
-    type: 'SET_TOKEN',
+export const TokenAction = (token: string) => ({
+    type: 'TOKEN_ACTION',
     payload: token,
 });
 

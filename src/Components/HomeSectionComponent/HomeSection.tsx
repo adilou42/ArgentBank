@@ -1,26 +1,24 @@
-import { useSelector } from 'react-redux';
 import './HomeSection.css'
-import { RootState } from '../../Redux/store';
 
 const HomeSection = () => {
 
-  const counter = useSelector((state: RootState) => state.counter.counter);
+  // const counter = useSelector((state: RootState) => state.counter.counter);
   
 
   return (
     <main>
       <div className="hero">
         <section className="hero-content">
-          <h2 className="sr-only">Promoted Content</h2>
+          {/* <h2 className="sr-only">Promoted Content</h2> */}
           <p className="subtitle">No fees.</p>
           <p className="subtitle">No minimum deposit.</p>
           <p className="subtitle">High interest rates.</p>
           <p className="text">Open a savings account with Argent Bank today!</p>
-          <p>Counter: {counter}</p> {/* Display the counter value */}
+          {/* <p>Counter: {counter}</p> Display the counter value */}
         </section>
       </div>
       <section className="features">
-        <h2 className="sr-only">Features</h2>
+        {/* <h2 className="sr-only">Features</h2> */}
         <div className="feature-item">
           <img src="../../../images/icon-chat.png" alt="Chat Icon" className="feature-icon" />
           <h3 className="feature-item-title">You are our #1 priority</h3>

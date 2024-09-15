@@ -4,21 +4,19 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "../../Redux/actions/userActions"; // Adjust the path as needed
+import { TokenAction } from "../../Redux/actions/userActions"; // Adjust the path as needed
 import { RootState } from "../../Redux/store";
 
 const SignIn = () => {
     const user = useSelector((state: RootState) => state.user); // Get counter from Redux store
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
 
     function setUserStore(token: string) {
-        dispatch(setToken(token));
+        dispatch(TokenAction(token));
         // localStorage.setItem("token", token);
         console.log(user.token);
         // console.log(token)
     }
-
-    
 
     const [username, setUsername] = useState("tony@stark.com");
     const [password, setPassword] = useState("password123");
@@ -32,7 +30,12 @@ const SignIn = () => {
     }
 
     function checkToken() {
-        console.log("Token: ", user);
+        console.log("TokenUser: ", user);
+        console.log("TokenLocal: ", localStorage.getItem("token"));
+    }
+
+    function deleteToken() {
+        localStorage.clear()
     }
 
     async function handleSubmit() {
@@ -54,17 +57,15 @@ const SignIn = () => {
         );
         const data = await response.json();
         if (response.ok) {
-            alert("success");
+            // alert("success");
             setUserStore(data.body.token);
+            localStorage.setItem("token", data.body.token)
             // window.location.href = "index.html";
         } else {
             switch (response.status) {
                 case 400:
                     alert("Invalid fields");
                     break;
-                // case 401:
-                //     alert("Incorrect password");
-                //     break;
                 default:
                     alert("An error occurred");
                     break;
@@ -113,13 +114,13 @@ const SignIn = () => {
                     >
                         Sign In
                     </button>
-                    {/* <button
+                    <button
                         className="sign-in-button"
                         type="button"
                         onClick={deleteToken}
                     >
                         delete Token
-                    </button> */}
+                    </button>
                     <button
                         className="sign-in-button"
                         type="button"

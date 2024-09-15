@@ -6,7 +6,7 @@ interface CustomAction extends Action {
 }
 
 const userState = {
-    firsrName: "",
+    firstName: "",
     lastName: "",
     userName: "",
     token:""
@@ -14,7 +14,7 @@ const userState = {
 
 const userReducer = (state = userState, action: CustomAction) => {
     switch (action.type) {
-        case 'SET_TOKEN':
+        case 'TOKEN_ACTION':
             return {
                 ...state,
                 token: action.payload,
