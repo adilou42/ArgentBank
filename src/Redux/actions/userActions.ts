@@ -3,6 +3,15 @@ export const TokenAction = (token: string) => ({
     payload: token,
 });
 
-export const deleteTokenAction = () => ({
-    type: 'DELETE_TOKEN_ACTION'
+export const deleteUserAction = () => ({
+    type: 'DELETE_USER_ACTION'
 })
+
+export const userAction = (firstName: string, lastName: string, userName: string) => ({
+    type: 'USER_ACTION',
+    payload: {
+        firstName,
+        lastName,
+        userName
+    },
+});

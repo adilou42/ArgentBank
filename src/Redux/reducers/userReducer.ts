@@ -19,10 +19,20 @@ const userReducer = (state = userState, action: CustomAction) => {
                 ...state,
                 token: action.payload,
             };
-        case 'DELETE_TOKEN_ACTION':
+        case 'DELETE_USER_ACTION':
             return {
                 ...state,
-                token: ""
+                token: "",
+                firstname: "",
+                lastName: "",
+                userName: ""
+            };
+            case 'USER_ACTION':
+            return {
+                ...state,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
+                userName: action.payload.userName
             }
         // other cases
         default:

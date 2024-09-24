@@ -6,20 +6,22 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TokenAction } from "../../Redux/actions/userActions"; // Adjust the path as needed
 import { RootState } from "../../Redux/store";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+    const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.user); // Get counter from Redux store
     const dispatch = useDispatch();
 
-    function setUserStore(token: string) {
+    function setTokenStore(token: string) {
         dispatch(TokenAction(token));
-        // localStorage.setItem("token", token);
-        console.log(user.token);
         // console.log(token)
+        localStorage.setItem("token", token)
     }
 
     const [username, setUsername] = useState("tony@stark.com");
     const [password, setPassword] = useState("password123");
+
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value);
@@ -41,10 +43,10 @@ const SignIn = () => {
     async function handleSubmit() {
         const emailValue = username;
         const passwordValue = password;
-        const response = await fetch(
+        const response_login = await fetch(
             "http://localhost:3001/api/v1/user/login",
             {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                method: "POST",
 
                 headers: {
                     "Content-Type": "application/json",
@@ -55,14 +57,14 @@ const SignIn = () => {
                 }),
             }
         );
-        const data = await response.json();
-        if (response.ok) {
+        const data = await response_login.json();
+        if (response_login.ok) {
+            console.log('yoo',data)
             // alert("success");
-            setUserStore(data.body.token);
-            localStorage.setItem("token", data.body.token)
-            // window.location.href = "index.html";
+            setTokenStore(data.body.token);
+            navigate("/User")
         } else {
-            switch (response.status) {
+            switch (response_login.status) {
                 case 400:
                     alert("Invalid fields");
                     break;
@@ -86,6 +88,7 @@ const SignIn = () => {
                         <input
                             type="text"
                             value="tony@stark.com"
+                            // value="steve@rogers.com"
                             id="username"
                             onChange={handleUsernameChange}
                         />
@@ -96,6 +99,7 @@ const SignIn = () => {
                             type="password"
                             id="password"
                             value="password123"
+                            // value="password456"
                             onChange={handlePasswordChange}
                         />
                     </div>

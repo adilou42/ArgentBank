@@ -22,7 +22,7 @@
     margin-right: 0.5rem;
   }
   
-  .main-nav-item:hover {
+  .main-nav-item:hover, .main-nav-button:hover{
     text-decoration: underline;
   }
   

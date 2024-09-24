@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
+
 import "./User.css";
 
 const User = () => {
+
+    const user = useSelector((state: RootState) => state.user);
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -21,7 +26,7 @@ const User = () => {
                         <h1>
                             Welcome back
                             <br />
-                            Tony Jarvis!
+                            {user.firstName} {user.lastName}
                         </h1>
                         <button className="edit-button" onClick={editUser}>
                             Edit Name
@@ -33,15 +38,15 @@ const User = () => {
                         <form>
                             <div className="input-wrapper-edit">
                                 <label htmlFor="username">User name: </label>
-                                <input type="text" id="username" />
+                                <input type="text" id="username" placeholder={user.userName} />
                             </div>
                             <div className="input-wrapper-edit disabled">
                                 <label htmlFor="firstName">First name: </label>
-                                <input type="text" id="firstName" placeholder="Adil" />
+                                <input type="text" id="firstName" placeholder={user.firstName} />
                             </div>
                             <div className="input-wrapper-edit disabled">
-                                <label htmlFor="lasttName">Last name: </label>
-                                <input type="text" id="lastName" placeholder="Yakdi" />
+                                <label htmlFor="lastName">Last name: </label>
+                                <input type="text" id="lastName" placeholder={user.lastName} />
                             </div>
                             <div className="edit-user-button">
                             <button onClick={closeEditUser}>Save</button>
