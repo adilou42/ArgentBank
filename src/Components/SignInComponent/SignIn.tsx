@@ -59,7 +59,7 @@ const SignIn = () => {
         );
         const data = await response_login.json();
         if (response_login.ok) {
-            console.log('yoo',data)
+            // console.log('yoo',data)
             // alert("success");
             setTokenStore(data.body.token);
             navigate("/User")

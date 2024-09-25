@@ -10,11 +10,26 @@ const User = () => {
 
     const [isEditing, setIsEditing] = useState(false);
 
+    const [newUsername, setNewUsername] = useState("")
+
+    function saveEditUser(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault()
+        // const userNameDOM = document.getElementById("username")
+        console.log('userName: ', newUsername)
+        // console.log('first', isEditing)
+        // closeEditUser(event)
+    }
+
+    function handleNewUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setNewUsername(event.target.value);
+    }
+
     function editUser() {
         setIsEditing(true);
     }
 
-    function closeEditUser() {
+    function closeEditUser(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault()
         setIsEditing(false);
     }
 
@@ -38,7 +53,7 @@ const User = () => {
                         <form>
                             <div className="input-wrapper-edit">
                                 <label htmlFor="username">User name: </label>
-                                <input type="text" id="username" placeholder={user.userName} />
+                                <input type="text" id="username" placeholder={user.userName} onChange={handleNewUsernameChange} />
                             </div>
                             <div className="input-wrapper-edit disabled">
                                 <label htmlFor="firstName">First name: </label>
@@ -49,8 +64,9 @@ const User = () => {
                                 <input type="text" id="lastName" placeholder={user.lastName} />
                             </div>
                             <div className="edit-user-button">
-                            <button onClick={closeEditUser}>Save</button>
+                            <button onClick={saveEditUser}>Save</button>
                             <button onClick={closeEditUser}>Cancel</button>
+                            {/* <button>test</button> */}
                         </div>
                         </form>
                     </div>
