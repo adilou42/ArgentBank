@@ -12,12 +12,41 @@ const User = () => {
 
     const [newUsername, setNewUsername] = useState("")
 
+    const token = localStorage.getItem("token")
+
+    async function updateUsername(username: string) {
+        console.log('username', username)
+        const response_user = await fetch(
+            "http://localhost:3001/api/v1/user/profile",
+            {
+                method: "PUT",
+                body: JSON.stringify({
+                    "userName": username
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+        if (response_user.ok) {
+
+            alert("Username modified succesfully");
+        } else {
+            switch (response_user.status) {
+                case 400:
+                    console.log("Invalid fields");
+                    break;
+                default:
+                    console.log("An error occurred");
+                    break;
+            }
+        }
+    }
+
     function saveEditUser(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
-        // const userNameDOM = document.getElementById("username")
-        console.log('userName: ', newUsername)
-        // console.log('first', isEditing)
-        // closeEditUser(event)
+        updateUsername(newUsername)
     }
 
     function handleNewUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -28,8 +57,8 @@ const User = () => {
         setIsEditing(true);
     }
 
-    function closeEditUser(event: React.MouseEvent<HTMLButtonElement>) {
-        event.preventDefault()
+    function closeEditUser(event?: React.MouseEvent<HTMLButtonElement>) {
+        event?.preventDefault()
         setIsEditing(false);
     }
 
@@ -66,7 +95,6 @@ const User = () => {
                             <div className="edit-user-button">
                             <button onClick={saveEditUser}>Save</button>
                             <button onClick={closeEditUser}>Cancel</button>
-                            {/* <button>test</button> */}
                         </div>
                         </form>
                     </div>

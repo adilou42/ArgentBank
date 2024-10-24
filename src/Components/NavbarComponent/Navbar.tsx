@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../Redux/store";
-import { deleteUserAction, userAction } from "../../Redux/actions/userActions"; // Adjust the path as needed
+import { deleteUserAction, userAction } from "../../Redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,7 +21,6 @@ const Navbar = () => {
     }
 
     function signOut() {
-        // alert('lol')
         dispatch(deleteUserAction());
         localStorage.clear();
         navigate("/")
@@ -31,7 +30,6 @@ const Navbar = () => {
             "http://localhost:3001/api/v1/user/profile",
             {
                 method: "POST",
-
                 headers: {
                     Authorization: "Bearer " + token,
                 },
@@ -39,8 +37,6 @@ const Navbar = () => {
         );
         const data = await response_user.json();
         if (response_user.ok) {
-            // console.log("data: ", data);
-            // alert("success");
             setUserStore(data.body.firstName, data.body.lastName, data.body.userName);
         } else {
             switch (response_user.status) {
@@ -52,9 +48,9 @@ const Navbar = () => {
                     break;
             }
         }
-        // console.log("user: ", user);
     }
-    getUserProfile()
+    if (token)
+        getUserProfile()
 
     return (
         <nav className="main-nav">
@@ -65,10 +61,6 @@ const Navbar = () => {
                     alt="Argent Bank Logo"
                 />
             </Link>
-            {/* <h1 className="sr-only">Argent Bank</h1> */}
-            {/* <button>
-                check user
-            </button> */}
             <div>
                 {user.token || token ? (
                     <div className="nav-button-div">
@@ -78,7 +70,6 @@ const Navbar = () => {
                         </Link> 
 
                         <div onClick={signOut} className="main-nav-button">
-                            {/* <FontAwesomeIcon icon="arrow-right-from-bracket" /> */}
                             <FontAwesomeIcon icon={faRightFromBracket} />
                             <p>Sign Out</p>
                         </div>

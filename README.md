@@ -1,3 +1,8 @@
 http://localhost:3001/api-docs
 
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzgxZmNlZWFiMGQzMDUwMDYyMDlmNSIsImlhdCI6MTcyNjgxNTk0MSwiZXhwIjoxNzI2OTAyMzQxfQ.eycwuWMRuyDC4vdkUXqtd_fz279XxtFyxclJWak5QSA
+Values to SignIn:
+username: "tony@stark.com"
+password: "password123"
+
+username: "steve@rogers.com"
+password: "password456"

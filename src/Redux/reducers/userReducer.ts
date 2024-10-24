@@ -34,7 +34,6 @@ const userReducer = (state = userState, action: CustomAction) => {
                 lastName: action.payload.lastName,
                 userName: action.payload.userName
             }
-        // other cases
         default:
             return state;
     }
