@@ -15,7 +15,6 @@ const User = () => {
     const token = localStorage.getItem("token")
 
     async function updateUsername(username: string) {
-        console.log('username', username)
         const response_user = await fetch(
             "http://localhost:3001/api/v1/user/profile",
             {
@@ -46,7 +45,10 @@ const User = () => {
 
     function saveEditUser(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
-        updateUsername(newUsername)
+        if (!newUsername)
+            alert("New username cannot be empty")
+        else 
+            updateUsername(newUsername)
     }
 
     function handleNewUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
