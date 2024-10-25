@@ -44,11 +44,16 @@ const User = () => {
     }
 
     function saveEditUser(event: React.MouseEvent<HTMLButtonElement>) {
-        event.preventDefault()
-        if (!newUsername)
-            alert("New username cannot be empty")
-        else 
-            updateUsername(newUsername)
+        event.preventDefault();
+        const usernameRegex = /^[a-zA-Z0-9_]+$/;
+        if (!newUsername.trim()) {
+            alert("New username cannot be empty");
+        } else if (!usernameRegex.test(newUsername)) {
+            alert("New username must contain only alphanumeric characters and underscores");
+        } else {
+            updateUsername(newUsername);
+            setIsEditing(false);
+        }
     }
 
     function handleNewUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
